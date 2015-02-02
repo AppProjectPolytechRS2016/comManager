@@ -1,0 +1,2 @@
+# comManager
+Gestionnaire de Communication
