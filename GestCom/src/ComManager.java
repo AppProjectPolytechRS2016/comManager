@@ -14,6 +14,8 @@ public class ComManager implements Runnable
 	private ServerSocket sockserv = null;  //Socket du serveur pour attendre les requ�tes en provenance des clients
 	private ChaineServCli chaine = null;   //Objet de communication entre le client et le serveur
 	
+
+
 	//Variable Serveur
 	private boolean bRun = true;  
 	private InetAddress LocaleAdresse ;  //Pour recuperer l'adresse Ip locale
@@ -94,6 +96,14 @@ public class ComManager implements Runnable
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public ArrayList<RobotLink> getArRobotLink() {
+		return arRobotLink;
+	}
+
+	public ArrayList<DeviceLink> getArDeviceLink() {
+		return arDeviceLink;
 	}
 
 	public static void main (String args[])

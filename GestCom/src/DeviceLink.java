@@ -9,4 +9,8 @@ public class DeviceLink extends Link {
 		super(es, sockcli, myComManager);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public void run(){
+		
+	}
 }
