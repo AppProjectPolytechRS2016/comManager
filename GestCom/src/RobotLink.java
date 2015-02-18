@@ -8,4 +8,10 @@ public class RobotLink extends Link{
 		super(es, sockcli, myComManager);
 		// TODO Auto-generated constructor stub
 	}
+	
+	/**Methode traitant les message arrivant vers le serveur et discriminant les type de message */
+	public void traitementReception(String sMessage)
+	{
+		System.out.println("Message recu par le serveur : "+sMessage);
+	}
 }

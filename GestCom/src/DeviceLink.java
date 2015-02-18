@@ -10,7 +10,9 @@ public class DeviceLink extends Link {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void run(){
-		
+	/**Methode traitant les message arrivant vers le serveur et discriminant les type de message */
+	public void traitementReception(String sMessage)
+	{
+		System.out.println("Message recu par le serveur : "+sMessage);
 	}
 }
