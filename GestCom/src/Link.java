@@ -1,5 +1,6 @@
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
@@ -47,7 +48,7 @@ public class Link implements Runnable
 	{
 		try 
 		{
-			Flux.ecritureMessage(out, sMessage);
+			NetworkFlow.ecritureMessage(out, sMessage);
 		}
 		catch (IOException e)
 		{
@@ -71,15 +72,25 @@ public class Link implements Runnable
 		{
 			try 
 			{
-				sChaine = Flux.lectureMessage(in); //Lecture des messages venant du client
+				sChaine = NetworkFlow.lectureMessage(in); //Lecture des messages venant du client
 				traitementReception(sChaine);
 			} 
+			catch(EOFException a){
+				bRunLink = false;
+				try {
+					this.socklink.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 			catch (IOException e) 
 			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				System.exit(0);
 			}
+			
 			Thread.yield();
 		}
 	}

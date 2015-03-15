@@ -1,16 +1,16 @@
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.IOException;
 
-public class Flux
+public class NetworkFlow
 {
 	/**Methode permettant de lire le flux reseau d'entree et de convertir ce qui a ete lue en String*/
-	public static String lectureMessage(DataInputStream in) throws IOException
+	public static String lectureMessage(DataInputStream in) throws IOException,EOFException
 	{
 		int taille = in.readInt();		
 		byte message[]=new byte[taille];
 		int nb = in.read(message,0,taille);
-		System.out.println(nb);
 		return new String(message);
 	}
 	

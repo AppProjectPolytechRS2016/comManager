@@ -8,14 +8,13 @@ import java.util.concurrent.Executors;
 
 public class ComManager
 {
-	private ExecutorService es;            //Definition du groupe de threads
-
 	//ComManager attribute
 	private InetAddress LocaleAdresse ;  //Pour recuperer l'adresse Ip locale
 	private RobotBridge myRobotBridge;
 	private DeviceBridge myDeviceBridge;
 	private ArrayList<RobotLink> arRobotLink = new ArrayList<RobotLink>(); //ArrayList contenant les clients du serveur
 	private ArrayList<DeviceLink> arDeviceLink = new ArrayList<DeviceLink>(); //ArrayList contenant les clients du serveur
+	private ExecutorService es;            //Definition du groupe de threads
 	
 	public ComManager(ExecutorService es)
 	{
@@ -24,7 +23,7 @@ public class ComManager
 		try
 		{
 			LocaleAdresse = InetAddress.getLocalHost();  //Recuperation de l'adresse Ip
-            System.out.println("L'adresse locale est : "+LocaleAdresse );
+            System.out.println("L'adresse locale est : "+LocaleAdresse.getHostAddress().toString() );
 		}
 		catch (IOException ex) {}
 		
@@ -57,7 +56,7 @@ public class ComManager
 
 	public static void main (String args[])
 	{
-		ExecutorService es = Executors.newFixedThreadPool(13); //Permet l'execution de 10 thread 
+		ExecutorService es = Executors.newFixedThreadPool(13); //Allow 10 connections (devices and robots mingled)  
 		ComManager comManager = new ComManager(es); //ComManager's instantiation
 	}
 }

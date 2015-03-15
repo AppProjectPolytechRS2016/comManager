@@ -38,7 +38,7 @@ public class RobotBridge implements Runnable {
 				System.out.println("Waiting for robot ...");
 				Socket sockcli = sockServRobot.accept();  //Attente de la connexion d'un client
 				nb_clients++;
-				System.out.println("Device connection ok");
+				System.out.println("Robot connection ok");
 				newRobotLink = new RobotLink(myExecServ, sockcli, myComManager);  //Creation de l'objet de communication avec le client
 				this.myComManager.addRobot(newRobotLink);   						//add Robotlink to myComManager's list
 				this.newRobotLink.idClientServeur = nb_clients;
