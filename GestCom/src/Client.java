@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import org.json.simple.JSONObject;
 
 public class Client implements Runnable
@@ -37,7 +36,7 @@ public class Client implements Runnable
 				this.in = new DataInputStream(sockcli.getInputStream());
 				this.out = new DataOutputStream(sockcli.getOutputStream());
 				
-				NetworkFlow.ecritureMessage(out, "0"+sId); //Envoie de l'id
+				NetworkFlow.writeMessage(out, "0"+sId); //Envoie de l'id
 			} 
 			catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -55,7 +54,7 @@ public class Client implements Runnable
 	
 	public void writeMessage(String sLeMessage){
 		try {
-			NetworkFlow.ecritureMessage(out, sLeMessage);
+			NetworkFlow.writeMessage(out, sLeMessage);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

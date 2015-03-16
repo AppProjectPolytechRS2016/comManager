@@ -6,7 +6,7 @@ import java.io.IOException;
 public class NetworkFlow
 {
 	/**Methode permettant de lire le flux reseau d'entree et de convertir ce qui a ete lue en String*/
-	public static String lectureMessage(DataInputStream in) throws IOException,EOFException
+	public static String readMessage(DataInputStream in) throws IOException,EOFException
 	{
 		int taille = in.readInt();		
 		byte message[]=new byte[taille];
@@ -15,7 +15,7 @@ public class NetworkFlow
 	}
 	
 	/**Methode permettant d'ecrire un message sur le flux reseau de sortie */
-	public static void ecritureMessage(DataOutputStream out, String s) throws IOException
+	public static void writeMessage(DataOutputStream out, String s) throws IOException
 	{
 		byte message[] = s.getBytes();		
 		out.writeInt(message.length);

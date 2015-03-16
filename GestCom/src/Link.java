@@ -48,7 +48,7 @@ public class Link implements Runnable
 	{
 		try 
 		{
-			NetworkFlow.ecritureMessage(out, sMessage);
+			NetworkFlow.writeMessage(out, sMessage);
 		}
 		catch (IOException e)
 		{
@@ -72,7 +72,7 @@ public class Link implements Runnable
 		{
 			try 
 			{
-				sChaine = NetworkFlow.lectureMessage(in); //Lecture des messages venant du client
+				sChaine = NetworkFlow.readMessage(in); //Lecture des messages venant du client
 				traitementReception(sChaine);
 			} 
 			catch(EOFException a){
