@@ -8,7 +8,7 @@ import java.util.concurrent.ExecutorService;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
-public class Link implements Runnable
+public class Link implements Runnable, DecoSource
 {
 	protected ExecutorService es; //Definition du groupe de taches */
 	protected Socket socklink = null; //Definition socket pour communiquer avec le client
@@ -54,9 +54,13 @@ public class Link implements Runnable
 			System.out.println("ident trame");
 			traitementIdent(objJson);
 		}
+		else if(objJson.get("MsgType").equals("Logout")){
+			System.out.println("logout trame");
+			traitementLogout(objJson);
+		}
 		else{
 			System.out.println("other trame");
-			this.myComManager.transmissionMessage(objJson);
+			this.myComManager.transmissionMessage(objJson, this);
 		}
 	}
 	
@@ -64,6 +68,10 @@ public class Link implements Runnable
 		this.sIpClient = (String) objJson.get("From");
 		System.out.println("Ip client = ");
 		System.out.println(sIpClient);
+	}
+	
+	public void traitementLogout(JSONObject objJson){
+		
 	}
 	
 	/**Methode Permettant l'envoie de message au client */
@@ -116,5 +124,16 @@ public class Link implements Runnable
 			
 			Thread.yield();
 		}
+	}
+
+	@Override
+	public void addObserver() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyObserver() {
+		this.myComManager.logoutPerformed();
 	}
 }

@@ -8,10 +8,9 @@ import org.json.simple.JSONObject;
 
 // Toutes les taches utilisent l'interface Runnable
 
-public class ComManager
+public class ComManager implements DecoObserver
 {
 	//ComManager attribute
-	private InetAddress LocaleAdresse ;  //Pour recuperer l'adresse Ip locale
 	private RobotBridge myRobotBridge;
 	private DeviceBridge myDeviceBridge;
 	private ArrayList<RobotLink> arRobotLink = new ArrayList<RobotLink>(); //ArrayList contenant les clients du serveur
@@ -24,8 +23,8 @@ public class ComManager
 
 		try
 		{
-			LocaleAdresse = InetAddress.getLocalHost();  //Recuperation de l'adresse Ip
-            System.out.println("L'adresse locale est : "+LocaleAdresse.getHostAddress().toString() );
+			//LocaleAdresse = InetAddress.getLocalHost();  //Recuperation de l'adresse Ip
+            System.out.println("ComManager address is : "+InetAddress.getLocalHost().getHostAddress() );
 		}
 		catch (IOException ex) {}
 		
@@ -36,9 +35,20 @@ public class ComManager
 	}
 	
 	/** Methode permettant de transmettre au destinataire un message provenant d'un client */
-	public void transmissionMessage(JSONObject objJson) {
-		// TODO Auto-generated method stub
+	public void transmissionMessage(JSONObject objJson, Object obj) {
+		int index; 
 		
+		if(obj.getClass() == DeviceLink.class){
+			index = this.arRobotLink.indexOf(objJson.get("To"));
+			this.arRobotLink.get(index).envoieMessageClient(objJson.toJSONString());
+		}
+		else if (obj.getClass() ==  RobotLink.class){
+			index = this.arDeviceLink.indexOf(objJson.get("To"));
+			this.arDeviceLink.get(index).envoieMessageClient(objJson.toJSONString());
+		}
+		else{
+			System.out.println("Error while routing message !!!");
+		}	
 	}
 	
 	public void addDevice (DeviceLink newDevice){
@@ -61,5 +71,11 @@ public class ComManager
 	{
 		ExecutorService es = Executors.newFixedThreadPool(13); //Allow 10 connections (devices and robots mingled)  
 		ComManager comManager = new ComManager(es); //ComManager's instantiation
+	}
+
+	@Override
+	public void logoutPerformed() {
+		// TODO Auto-generated method stub
+		
 	}
 }
