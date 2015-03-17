@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.json.simple.JSONObject;
+
 // Toutes les taches utilisent l'interface Runnable
 
 public class ComManager
@@ -34,8 +36,9 @@ public class ComManager
 	}
 	
 	/** Methode permettant de transmettre au destinataire un message provenant d'un client */
-	public void transmissionMessage(char idRecepteur, String sMessage){
-		//TODO
+	public void transmissionMessage(JSONObject objJson) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	public void addDevice (DeviceLink newDevice){

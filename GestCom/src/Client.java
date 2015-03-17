@@ -9,7 +9,6 @@ import org.json.simple.JSONObject;
 public class Client implements Runnable
 {
 	//Client attributes
-	private char sId = '1' ;
 	private int Socketport = 6030;
 	private DataInputStream in;
 	private DataOutputStream out;
@@ -35,8 +34,6 @@ public class Client implements Runnable
 			try {
 				this.in = new DataInputStream(sockcli.getInputStream());
 				this.out = new DataOutputStream(sockcli.getOutputStream());
-				
-				NetworkFlow.writeMessage(out, "0"+sId); //Envoie de l'id
 			} 
 			catch (IOException e) {
 				// TODO Auto-generated catch block

@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+
 public class Link implements Runnable
 {
 	protected ExecutorService es; //Definition du groupe de taches */
@@ -16,6 +19,7 @@ public class Link implements Runnable
 	protected ComManager myComManager;
 	
 	protected int idClientServeur;
+	protected String sIpClient;
 	protected String sName; 
 	protected boolean bRunLink;
 	
@@ -41,6 +45,25 @@ public class Link implements Runnable
 	public void traitementReception(String sMessage)
 	{
 		System.out.println("Message recu par le serveur : "+sMessage);
+		
+		Object obj = JSONValue.parse(sMessage);
+		JSONObject objJson = (JSONObject) obj;
+		
+
+		if(objJson.get("MsgType").equals("Ident")){
+			System.out.println("ident trame");
+			traitementIdent(objJson);
+		}
+		else{
+			System.out.println("other trame");
+			this.myComManager.transmissionMessage(objJson);
+		}
+	}
+	
+	public void traitementIdent(JSONObject objJson){
+		this.sIpClient = (String) objJson.get("From");
+		System.out.println("Ip client = ");
+		System.out.println(sIpClient);
 	}
 	
 	/**Methode Permettant l'envoie de message au client */
@@ -62,7 +85,7 @@ public class Link implements Runnable
 	{
 		return idClientServeur;
 	}
-
+	
 	public void run()
 	{
 		bRunLink = true;
