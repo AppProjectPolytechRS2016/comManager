@@ -39,16 +39,40 @@ public class ComManager implements DecoObserver
 		int index; 
 		
 		if(obj.getClass() == DeviceLink.class){
-			index = this.arRobotLink.indexOf(objJson.get("To"));
+			index = findRobot((String)objJson.get("To"));
 			this.arRobotLink.get(index).envoieMessageClient(objJson.toJSONString());
 		}
 		else if (obj.getClass() ==  RobotLink.class){
-			index = this.arDeviceLink.indexOf(objJson.get("To"));
+			index = findDevice((String)objJson.get("To"));
 			this.arDeviceLink.get(index).envoieMessageClient(objJson.toJSONString());
 		}
 		else{
 			System.out.println("Error while routing message !!!");
 		}	
+	}
+	public int findRobot(String sIp){
+		int index = 0;
+		
+		for(int iBcl = 0; iBcl == this.arRobotLink.size(); iBcl++)
+		{
+			if(this.arRobotLink.get(iBcl).sIpClient == sIp)
+			{
+				index = iBcl;
+			}
+		}
+		return index;
+	}
+	public int findDevice(String sIp){
+		int index = 0;
+		
+		for(int iBcl = 0; iBcl == this.arDeviceLink.size(); iBcl++)
+		{
+			if(this.arDeviceLink.get(iBcl).sIpClient == sIp)
+			{
+				index = iBcl;
+			}
+		}
+		return index;
 	}
 	
 	public void addDevice (DeviceLink newDevice){
