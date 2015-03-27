@@ -1,3 +1,4 @@
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
@@ -20,5 +21,10 @@ public class NetworkFlow
 		byte message[] = s.getBytes();		
 		out.writeInt(message.length);
 		out.write(message);
+	}
+	
+	public static String readMessageBis(BufferedReader in) throws IOException,EOFException
+	{
+		return new String(in.readLine());
 	}
 }

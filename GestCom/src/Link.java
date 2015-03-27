@@ -1,7 +1,9 @@
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 
@@ -15,6 +17,9 @@ public class Link implements Runnable, DecoSource
 	
 	protected DataInputStream in;
 	protected DataOutputStream out;
+	
+	protected BufferedReader  inBuffer;
+	protected BufferedReader outBuffer;
 	
 	protected ComManager myComManager;
 	
@@ -33,6 +38,8 @@ public class Link implements Runnable, DecoSource
 		{
 			this.in = new DataInputStream(this.socklink.getInputStream()); //Definition des canaux de communications
 			this.out = new DataOutputStream(this.socklink.getOutputStream());
+			this.inBuffer = new BufferedReader(new InputStreamReader(
+								this.socklink.getInputStream()));
 		} 
 		catch (IOException e) 
 		{
@@ -103,7 +110,8 @@ public class Link implements Runnable, DecoSource
 		{
 			try 
 			{
-				sChaine = NetworkFlow.readMessage(in); //Lecture des messages venant du client
+				//sChaine = NetworkFlow.readMessage(in); //Lecture des messages venant du client
+				sChaine = NetworkFlow.readMessageBis(this.inBuffer); //Lecture des messages venant du client
 				traitementReception(sChaine);
 			} 
 			catch(EOFException a){
