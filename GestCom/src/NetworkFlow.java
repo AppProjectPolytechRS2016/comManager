@@ -25,6 +25,6 @@ public class NetworkFlow
 	
 	public static String readMessageBis(BufferedReader in) throws IOException,EOFException
 	{
-		return new String(in.readLine());
+		return in.readLine();
 	}
 }

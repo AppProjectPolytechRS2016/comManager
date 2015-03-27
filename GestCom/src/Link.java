@@ -51,23 +51,25 @@ public class Link implements Runnable, DecoSource
 	/**Methode traitant les message arrivant vers le serveur et discriminant les type de message */
 	public void traitementReception(String sMessage)
 	{
-		System.out.println("Message recu par le serveur : "+sMessage);
-		
-		Object obj = JSONValue.parse(sMessage);
-		JSONObject objJson = (JSONObject) obj;
-		
-
-		if(objJson.get("MsgType").equals("Ident")){
-			System.out.println("ident trame");
-			traitementIdent(objJson);
-		}
-		else if(objJson.get("MsgType").equals("Logout")){
-			System.out.println("logout trame");
-			traitementLogout(objJson);
-		}
-		else{
-			System.out.println("other trame");
-			this.myComManager.transmissionMessage(objJson, this);
+		if(sMessage != null)
+		{
+			System.out.println("Message recu par le serveur : "+sMessage);
+			Object obj = JSONValue.parse(sMessage);
+			JSONObject objJson = (JSONObject) obj;
+			
+			
+			if(objJson.get("MsgType").equals("Ident")){
+				System.out.println("ident trame");
+				traitementIdent(objJson);
+			}
+			else if(objJson.get("MsgType").equals("Logout")){
+				System.out.println("logout trame");
+				traitementLogout(objJson);
+			}
+			else{
+				System.out.println("other trame");
+				this.myComManager.transmissionMessage(objJson, this);
+			}
 		}
 	}
 	
