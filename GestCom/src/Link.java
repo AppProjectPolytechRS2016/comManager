@@ -112,6 +112,7 @@ public class Link implements Runnable, DecoSource
 			{
 				//sChaine = NetworkFlow.readMessage(in); //Lecture des messages venant du client
 				sChaine = NetworkFlow.readMessageBis(this.inBuffer); //Lecture des messages venant du client
+				
 				traitementReception(sChaine);
 			} 
 			catch(EOFException a){
