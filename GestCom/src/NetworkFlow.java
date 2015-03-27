@@ -18,9 +18,11 @@ public class NetworkFlow
 	/**Methode permettant d'ecrire un message sur le flux reseau de sortie */
 	public static void writeMessage(DataOutputStream out, String s) throws IOException
 	{
-		byte message[] = s.getBytes();		
-		out.writeInt(message.length);
-		out.write(message);
+		//byte message[] = s.getBytes();		
+		//out.writeInt(message.length);
+		//out.write(message);
+		System.out.println("too");
+		out.writeChars(s);
 	}
 	
 	public static String readMessageBis(BufferedReader in) throws IOException,EOFException
