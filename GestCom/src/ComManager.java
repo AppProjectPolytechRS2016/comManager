@@ -53,11 +53,12 @@ public class ComManager implements DecoObserver
 	public int findRobot(String sIp){
 		int index = 0;
 		
-		for(int iBcl = 0; iBcl == this.arRobotLink.size(); iBcl++)
+		for(int iBcl = 0; iBcl < this.arRobotLink.size(); iBcl++)
 		{
-			if(this.arRobotLink.get(iBcl).sIpClient == sIp)
+			if(this.arRobotLink.get(iBcl).sIpClient.equalsIgnoreCase(sIp))
 			{
 				index = iBcl;
+				break;
 			}
 		}
 		return index;
@@ -65,11 +66,13 @@ public class ComManager implements DecoObserver
 	public int findDevice(String sIp){
 		int index = 0;
 		
-		for(int iBcl = 0; iBcl == this.arDeviceLink.size(); iBcl++)
+		for(int iBcl = 0; iBcl < this.arDeviceLink.size(); iBcl++)
 		{
-			if(this.arDeviceLink.get(iBcl).sIpClient == sIp)
+			System.out.println(this.arDeviceLink.get(iBcl).sIpClient);
+			if(this.arDeviceLink.get(iBcl).sIpClient.equals(sIp))
 			{
 				index = iBcl;
+				break;
 			}
 		}
 		return index;

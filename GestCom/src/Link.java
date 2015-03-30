@@ -57,7 +57,7 @@ public class Link implements Runnable, DecoSource
 			Object obj = JSONValue.parse(sMessage);
 			JSONObject objJson = (JSONObject) obj;
 			
-			
+			System.out.println(objJson.get("MsgType"));
 			if(objJson.get("MsgType").equals("Ident")){
 				System.out.println("ident trame");
 				traitementIdent(objJson);
@@ -77,9 +77,14 @@ public class Link implements Runnable, DecoSource
 		this.sIpClient = (String) objJson.get("From");
 		System.out.println("Ip client = ");
 		System.out.println(sIpClient);
+		sendRobotList();
 	}
 	
 	public void traitementLogout(JSONObject objJson){
+		
+	}
+	
+	public void sendRobotList(){
 		
 	}
 	
@@ -88,6 +93,7 @@ public class Link implements Runnable, DecoSource
 	{
 		try 
 		{
+			System.out.println(this.sIpClient);
 			NetworkFlow.writeMessage(out, sMessage);
 		}
 		catch (IOException e)
