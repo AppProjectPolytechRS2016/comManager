@@ -66,6 +66,18 @@ public class Link implements Runnable, DecoSource
 				System.out.println("logout trame");
 				traitementLogout(objJson);
 			}
+			else if(objJson.get("MsgType").equals("UpdateList"))
+			{
+				if(this.getClass() == DeviceLink.class)
+				{
+					System.out.println("Update list trame");
+					sendRobotList();
+				}
+				else
+				{
+					System.out.println("Wrong class for update list");
+				}
+			}
 			else{
 				System.out.println("other trame");
 				this.myComManager.transmissionMessage(objJson, this);
