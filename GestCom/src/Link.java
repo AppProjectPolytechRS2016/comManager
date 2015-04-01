@@ -3,6 +3,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.concurrent.ExecutorService;
 
 import org.json.simple.JSONObject;
@@ -120,7 +121,19 @@ public class Link implements Runnable, DecoSource
 				sChaine = NetworkFlow.readMessage(this.inBuffer); //Lecture des messages venant du client
 				traitementReception(sChaine);
 			} 
-			catch (IOException e) 
+			catch(SocketException e2)
+			{
+				notifyObserver();
+				try {
+					this.socklink.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				e2.printStackTrace();
+				bRunLink = false;
+			}
+			catch(IOException e) 
 			{
 				// TODO Auto-generated catch block
 				try {
@@ -130,11 +143,11 @@ public class Link implements Runnable, DecoSource
 					e1.printStackTrace();
 				}
 				e.printStackTrace();
-				System.exit(0);
+				bRunLink = false;
 			}
-			
 			Thread.yield();
 		}
+		System.exit(0);
 	}
 
 	@Override

@@ -101,11 +101,19 @@ public class ComManager implements DecoObserver
 	}
 
 	@Override
-	public void logoutPerformed(Object obj) {
+	public void logoutPerformed(Object obj) 
+	{
 		if(obj.getClass() == DeviceLink.class)
 		{
-			
+			this.arDeviceLink.remove(obj);
 		}
-		
+		else if(obj.getClass() == RobotLink.class)
+		{
+			this.arRobotLink.remove(obj);
+		}
+		else
+		{
+			System.out.println("Probleme de type logout !!!");
+		}
 	}
 }

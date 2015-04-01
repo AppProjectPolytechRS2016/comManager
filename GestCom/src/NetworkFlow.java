@@ -21,7 +21,7 @@ public class NetworkFlow
 	/**Methode permettant d'ecrire un message sur le flux reseau de sortie */
 	public static void writeMessage(DataOutputStream out, String s) throws IOException
 	{
-		System.out.println("too");
+		System.out.println("Message envoye : " + s);
 		s.concat("\r\n");
 		byte message[] = s.getBytes();
 		out.write(message);
