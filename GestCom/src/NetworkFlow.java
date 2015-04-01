@@ -30,6 +30,5 @@ public class NetworkFlow
 	public static String readMessage(BufferedReader in) throws IOException,EOFException
 	{
 		return in.readLine();
-		//return in.re
 	}
 }

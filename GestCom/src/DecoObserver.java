@@ -1,5 +1,5 @@
 
 public interface DecoObserver {
 	
-	public void logoutPerformed();
+	public void logoutPerformed(Object obj);
 }

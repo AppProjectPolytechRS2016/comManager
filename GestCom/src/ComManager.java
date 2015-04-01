@@ -101,8 +101,11 @@ public class ComManager implements DecoObserver
 	}
 
 	@Override
-	public void logoutPerformed() {
-		// TODO Auto-generated method stub
+	public void logoutPerformed(Object obj) {
+		if(obj.getClass() == DeviceLink.class)
+		{
+			
+		}
 		
 	}
 }

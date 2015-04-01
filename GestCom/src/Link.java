@@ -1,7 +1,5 @@
 import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
@@ -15,11 +13,10 @@ public class Link implements Runnable, DecoSource
 	protected ExecutorService es; //Definition du groupe de taches */
 	protected Socket socklink = null; //Definition socket pour communiquer avec le client
 	
-	protected DataInputStream in;
+	//protected DataInputStream in;
 	protected DataOutputStream out;
 	
 	protected BufferedReader  inBuffer;
-	protected BufferedReader outBuffer;
 	
 	protected ComManager myComManager;
 	
@@ -36,7 +33,7 @@ public class Link implements Runnable, DecoSource
 		
 		try 
 		{
-			this.in = new DataInputStream(this.socklink.getInputStream()); //Definition des canaux de communications
+			//this.in = new DataInputStream(this.socklink.getInputStream()); //Definition des canaux de communications
 			this.out = new DataOutputStream(this.socklink.getOutputStream());
 			this.inBuffer = new BufferedReader(new InputStreamReader(
 								this.socklink.getInputStream()));
@@ -58,11 +55,13 @@ public class Link implements Runnable, DecoSource
 			JSONObject objJson = (JSONObject) obj;
 			
 			System.out.println(objJson.get("MsgType"));
-			if(objJson.get("MsgType").equals("Ident")){
+			if(objJson.get("MsgType").equals("Ident"))
+			{
 				System.out.println("ident trame");
 				traitementIdent(objJson);
 			}
-			else if(objJson.get("MsgType").equals("Logout")){
+			else if(objJson.get("MsgType").equals("Logout"))
+			{
 				System.out.println("logout trame");
 				traitementLogout(objJson);
 			}
@@ -118,21 +117,18 @@ public class Link implements Runnable, DecoSource
 		{
 			try 
 			{
-				sChaine = NetworkFlow.readMessage(this.inBuffer); //Lecture des messages venant du client		
+				sChaine = NetworkFlow.readMessage(this.inBuffer); //Lecture des messages venant du client
 				traitementReception(sChaine);
 			} 
-			catch(EOFException a){
-				bRunLink = false;
-				try {
-					this.socklink.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
 			catch (IOException e) 
 			{
 				// TODO Auto-generated catch block
+				try {
+					this.socklink.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				e.printStackTrace();
 				System.exit(0);
 			}
@@ -142,13 +138,7 @@ public class Link implements Runnable, DecoSource
 	}
 
 	@Override
-	public void addObserver() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void notifyObserver() {
-		this.myComManager.logoutPerformed();
+		this.myComManager.logoutPerformed(this);
 	}
 }
