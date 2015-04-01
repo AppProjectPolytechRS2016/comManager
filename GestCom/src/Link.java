@@ -159,7 +159,7 @@ public class Link implements Runnable, DecoSource
 			}
 			Thread.yield();
 		}
-		System.exit(0);
+		//System.exit(0);
 	}
 
 	@Override
