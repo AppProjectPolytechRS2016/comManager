@@ -64,7 +64,7 @@ public class Link implements Runnable, DecoSource
 			else if(objJson.get("MsgType").equals("Logout"))
 			{
 				System.out.println("logout trame");
-				traitementLogout(objJson);
+				traitementLogout();
 			}
 			else if(objJson.get("MsgType").equals("UpdateList"))
 			{
@@ -92,8 +92,8 @@ public class Link implements Runnable, DecoSource
 		sendRobotList();
 	}
 	
-	public void traitementLogout(JSONObject objJson){
-		
+	public void traitementLogout(){
+		notifyObserver();	
 	}
 	
 	public void sendRobotList(){
