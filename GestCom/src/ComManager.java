@@ -105,10 +105,12 @@ public class ComManager implements DecoObserver
 	{
 		if(obj.getClass() == DeviceLink.class)
 		{
+			System.out.println("Deconnexion Device !!!");
 			this.arDeviceLink.remove(obj);
 		}
 		else if(obj.getClass() == RobotLink.class)
 		{
+			System.out.println("Deconnexion Robot !!!");
 			this.arRobotLink.remove(obj);
 		}
 		else
