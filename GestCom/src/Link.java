@@ -132,34 +132,39 @@ public class Link implements Runnable, DecoSource
 			{
 				sChaine = NetworkFlow.readMessage(this.inBuffer); //Lecture des messages venant du client
 				traitementReception(sChaine);
+				Thread.yield();
 			} 
 			catch(SocketException e2)
 			{
 				notifyObserver();
-				try {
+				try 
+				{
 					this.socklink.close();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				} 
+				catch (IOException e1) 
+				{
+					//e1.printStackTrace();
+					System.out.println("Problem : "+e1.toString());
 				}
-				e2.printStackTrace();
+				System.out.println("Problem : "+e2.toString());
 				bRunLink = false;
 			}
 			catch(IOException e) 
 			{
+				notifyObserver();
 				// TODO Auto-generated catch block
-				try {
+				try 
+				{
 					this.socklink.close();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				} 
+				catch (IOException e1) 
+				{
+					System.out.println("Problem : "+e1.toString());
 				}
-				e.printStackTrace();
+				System.out.println("Problem : "+e.toString());
 				bRunLink = false;
 			}
-			Thread.yield();
 		}
-		//System.exit(0);
 	}
 
 	@Override
