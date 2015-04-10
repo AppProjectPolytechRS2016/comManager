@@ -25,7 +25,7 @@ public class DeviceLink extends Link {
 		}
 		else
 		{
-			this.myComManager.getArRobotLink().remove(index);
+			this.myComManager.getArDeviceLink().remove(index);
 			this.myComManager.addDevice(this);
 		}
 	}
