@@ -46,7 +46,7 @@ public class Link implements Runnable, DecoSource
 		}
 	}
 	
-	/**Methode traitant les message arrivant vers le serveur et discriminant les type de message */
+	/**Method to deal with JSON trame*/
 	public void traitementReception(String sMessage)
 	{
 		if(sMessage != null)

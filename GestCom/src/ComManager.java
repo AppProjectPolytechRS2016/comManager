@@ -38,19 +38,25 @@ public class ComManager implements DecoObserver
 	public void transmissionMessage(JSONObject objJson, Object obj) {
 		int index; 
 		
-		if(obj.getClass() == DeviceLink.class){
+		if(obj.getClass() == DeviceLink.class) //if message is for a Robot
+		{
 			index = findRobot((String)objJson.get("To"));
 			this.arRobotLink.get(index).envoieMessageClient(objJson.toJSONString());
 		}
-		else if (obj.getClass() ==  RobotLink.class){
+		else if (obj.getClass() ==  RobotLink.class)//if message is for a Device
+		{
 			index = findDevice((String)objJson.get("To"));
 			this.arDeviceLink.get(index).envoieMessageClient(objJson.toJSONString());
 		}
-		else{
+		else
+		{
 			System.out.println("Error while routing message !!!");
 		}	
 	}
-	public int findRobot(String sIp){
+	
+	/**Find a robot by is IP*/
+	public int findRobot(String sIp)
+	{
 		int index = 0;
 		
 		for(int iBcl = 0; iBcl < this.arRobotLink.size(); iBcl++)
@@ -63,7 +69,10 @@ public class ComManager implements DecoObserver
 		}
 		return index;
 	}
-	public int findDevice(String sIp){
+	
+	/**Find a device by is IP*/
+	public int findDevice(String sIp)
+	{
 		int index = 0;
 		
 		for(int iBcl = 0; iBcl < this.arDeviceLink.size(); iBcl++)
@@ -94,12 +103,6 @@ public class ComManager implements DecoObserver
 		return arDeviceLink;
 	}
 
-	public static void main (String args[])
-	{
-		ExecutorService es = Executors.newFixedThreadPool(13); //Allow 10 connections (devices and robots mingled)  
-		ComManager comManager = new ComManager(es); //ComManager's instantiation
-	}
-
 	@Override
 	public void logoutPerformed(Object obj) 
 	{
@@ -115,7 +118,13 @@ public class ComManager implements DecoObserver
 		}
 		else
 		{
-			System.out.println("Probleme de type logout !!!");
+			System.out.println("Problem de type logout !!!");
 		}
+	}
+	
+	public static void main (String args[])
+	{
+		ExecutorService es = Executors.newFixedThreadPool(13); //Allow 10 connections (devices and robots mingled)  
+		ComManager comManager = new ComManager(es); //ComManager's instantiation
 	}
 }
