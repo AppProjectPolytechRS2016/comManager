@@ -40,7 +40,7 @@ public class DeviceBridge implements Runnable{
 				nb_clients++;
 				System.out.println("Device connection ok");
 				newDeviceLink = new DeviceLink(myExecServ, sockcli, myComManager);  //Creation de l'objet de communication avec le client
-				this.myComManager.addDevice(newDeviceLink);    						//add DeviceLink to myComManager's list
+				//this.myComManager.addDevice(newDeviceLink);    						//add DeviceLink to myComManager's list
 				this.newDeviceLink.idClientServeur = nb_clients;
 				myExecServ.execute(newDeviceLink);          //On execute la methode run() de l'objet de communication
 			}

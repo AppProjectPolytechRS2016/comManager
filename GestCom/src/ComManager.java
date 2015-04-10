@@ -16,15 +16,18 @@ public class ComManager implements DecoObserver
 	private ArrayList<RobotLink> arRobotLink = new ArrayList<RobotLink>(); //ArrayList contenant les clients du serveur
 	private ArrayList<DeviceLink> arDeviceLink = new ArrayList<DeviceLink>(); //ArrayList contenant les clients du serveur
 	private ExecutorService es;            //Definition du groupe de threads
-	
+	private Window myWindow;
+
 	public ComManager(ExecutorService es)
 	{
 		this.es = es;
-
+		this.myWindow = new Window();
+		this.myWindow.add();
 		try
 		{
 			//LocaleAdresse = InetAddress.getLocalHost();  //Recuperation de l'adresse Ip
-            System.out.println("ComManager address is : "+InetAddress.getLocalHost().getHostAddress() );
+            //System.out.println("ComManager address is : "+InetAddress.getLocalHost().getHostAddress() );
+			this.myWindow.writeTextC("ComManager address is : "+InetAddress.getLocalHost().getHostAddress() );
 		}
 		catch (IOException ex) {}
 		
@@ -57,7 +60,7 @@ public class ComManager implements DecoObserver
 	/**Find a robot by is IP*/
 	public int findRobot(String sIp)
 	{
-		int index = 0;
+		int index = -1;
 		
 		for(int iBcl = 0; iBcl < this.arRobotLink.size(); iBcl++)
 		{
@@ -101,6 +104,10 @@ public class ComManager implements DecoObserver
 
 	public ArrayList<DeviceLink> getArDeviceLink() {
 		return arDeviceLink;
+	}
+	
+	public Window getMyWindow() {
+		return myWindow;
 	}
 
 	@Override

@@ -87,6 +87,7 @@ public class Link implements Runnable, DecoSource
 	
 	public void traitementIdent(JSONObject objJson){
 		this.sIpClient = (String) objJson.get("From");
+		checkOld();
 		System.out.println("Ip client = ");
 		System.out.println(sIpClient);
 		sendRobotList();
@@ -94,6 +95,10 @@ public class Link implements Runnable, DecoSource
 	
 	public void traitementLogout(){
 		notifyObserver();	
+	}
+	
+	public void checkOld(){
+		
 	}
 	
 	public void sendRobotList(){

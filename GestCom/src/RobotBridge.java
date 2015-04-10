@@ -40,7 +40,7 @@ public class RobotBridge implements Runnable {
 				nb_clients++;
 				System.out.println("Robot connection ok");
 				newRobotLink = new RobotLink(myExecServ, sockcli, myComManager);  //Creation de l'objet de communication avec le client
-				this.myComManager.addRobot(newRobotLink);   						//add Robotlink to myComManager's list
+				//this.myComManager.addRobot(newRobotLink);   						//add Robotlink to myComManager's list
 				this.newRobotLink.idClientServeur = nb_clients;
 				myExecServ.execute(newRobotLink);          //On execute la methode run() de l'objet de communication
 			}

@@ -15,6 +15,21 @@ public class DeviceLink extends Link {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public void checkOld()
+	{
+		int index;
+		index = this.myComManager.findDevice(sIpClient);
+		if(index == -1)
+		{
+			this.myComManager.addDevice(this);
+		}
+		else
+		{
+			this.myComManager.getArRobotLink().remove(index);
+			this.myComManager.addDevice(this);
+		}
+	}
+	
 	public void sendRobotList(){
 		JSONObject myjson = new JSONObject();
 		JSONArray RobotList = new JSONArray();
