@@ -17,20 +17,24 @@ public class ComManager implements DecoObserver
 	private ArrayList<DeviceLink> arDeviceLink = new ArrayList<DeviceLink>(); //ArrayList contenant les clients du serveur
 	private ExecutorService es;            //Definition du groupe de threads
 	private Window myWindow;
-
+	private String myIp;
+	
+	
 	public ComManager(ExecutorService es)
 	{
 		this.es = es;
-		this.myWindow = new Window();
-		this.myWindow.add();
 		try
 		{
-			//LocaleAdresse = InetAddress.getLocalHost();  //Recuperation de l'adresse Ip
-            //System.out.println("ComManager address is : "+InetAddress.getLocalHost().getHostAddress() );
-			this.myWindow.writeTextC("ComManager address is : "+InetAddress.getLocalHost().getHostAddress() );
+            this.myIp = InetAddress.getLocalHost().getHostAddress();
+            //System.out.println("ComManager address is : " + this.myIp);
 		}
 		catch (IOException ex) {}
-		
+		this.myWindow = new Window(this);
+		this.myWindow.add();		
+	}
+	
+	public void startComManager ()
+	{
 		this.myDeviceBridge = new DeviceBridge(this, es);
 		this.myRobotBridge = new RobotBridge(this, es);
 		es.execute(myDeviceBridge);
@@ -108,6 +112,10 @@ public class ComManager implements DecoObserver
 	
 	public Window getMyWindow() {
 		return myWindow;
+	}
+	
+	public String getMyIp() {
+		return myIp;
 	}
 
 	@Override
