@@ -90,7 +90,11 @@ public class Link implements Runnable, DecoSource
 		this.sIpClient = (String) objJson.get("From");
 		checkOld();
 		this.myComManager.writeConsoleLog("Ip client = " + sIpClient);
+		printIp();
 		sendRobotList();
+	}
+	
+	public void printIp(){
 	}
 	
 	public void traitementLogout(){

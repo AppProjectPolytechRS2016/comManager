@@ -10,6 +10,11 @@ public class RobotLink extends Link{
 		// TODO Auto-generated constructor stub
 	}
 	
+	public void printIp()
+	{
+		this.myComManager.getMyWindow().writeListeRobot(sIpClient);
+	}
+	
 	public void checkOld()
 	{
 		int index;
@@ -21,6 +26,7 @@ public class RobotLink extends Link{
 		else
 		{
 			this.myComManager.getArRobotLink().remove(index);
+			this.myComManager.getMyWindow().removeListeRobot(index);
 			this.myComManager.addRobot(this);
 		}
 	}

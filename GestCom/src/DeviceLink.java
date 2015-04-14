@@ -15,6 +15,11 @@ public class DeviceLink extends Link {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public void printIp()
+	{
+		this.myComManager.getMyWindow().writeListeDevice(sIpClient);
+	}
+	
 	public void checkOld()
 	{
 		int index;
@@ -26,6 +31,7 @@ public class DeviceLink extends Link {
 		else
 		{
 			this.myComManager.getArDeviceLink().remove(index);
+			this.myComManager.getMyWindow().removeListeDevice(index);
 			this.myComManager.addDevice(this);
 		}
 	}

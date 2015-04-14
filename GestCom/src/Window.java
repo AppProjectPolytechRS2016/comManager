@@ -131,7 +131,7 @@ public class Window extends JFrame implements ActionListener
 	
 	public void writeTextC(String Text)
 	{
-		this.jTextAreaConsole.append(Text+'\n');
+		this.jTextAreaConsole.append(Text+"\n");
 	}
 	
 	public void writeListeDevice(String name)
@@ -142,6 +142,16 @@ public class Window extends JFrame implements ActionListener
 	public void writeListeRobot(String name)
 	{
 		this.jListModelRobot.addElement(name);
+	}
+	
+	public void removeListeDevice(int index)
+	{
+		this.jListModelDevice.removeElementAt(index);;
+	}
+
+	public void removeListeRobot(int index)
+	{
+		this.jListModelRobot.removeElementAt(index);
 	}
 	
 	public void actionPerformed(ActionEvent arg0) {

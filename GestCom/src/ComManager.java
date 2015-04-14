@@ -131,6 +131,10 @@ public class ComManager implements DecoObserver
 		return myIp;
 	}
 
+	public Window getMyWindow() {
+		return myWindow;
+	}
+
 	@Override
 	public void logoutPerformed(Object obj) 
 	{
@@ -138,12 +142,14 @@ public class ComManager implements DecoObserver
 		{
 			//System.out.println("Deconnexion Device !!!");
 			this.writeConsoleLog("Deconnexion Device !!!");
+			this.myWindow.removeListeDevice(this.arDeviceLink.indexOf(obj));
 			this.arDeviceLink.remove(obj);
 		}
 		else if(obj.getClass() == RobotLink.class)
 		{
 			//System.out.println("Deconnexion Robot !!!");
 			this.writeConsoleLog("Deconnexion Robot !!!");
+			this.myWindow.removeListeRobot(this.arRobotLink.indexOf(obj));
 			this.arRobotLink.remove(obj);
 		}
 		else
