@@ -51,19 +51,20 @@ public class Link implements Runnable, DecoSource
 	{
 		if(sMessage != null)
 		{
-			System.out.println("Message recu par le serveur : "+sMessage);
+			//System.out.println("Message recu par le serveur : "+sMessage);
+			this.myComManager.writeConsoleLog("Message recu par le serveur : "+sMessage);
 			Object obj = JSONValue.parse(sMessage);
 			JSONObject objJson = (JSONObject) obj;
 			
 			System.out.println(objJson.get("MsgType"));
 			if(objJson.get("MsgType").equals("Ident"))
 			{
-				System.out.println("ident trame");
+				System.out.println("Ident trame");
 				traitementIdent(objJson);
 			}
 			else if(objJson.get("MsgType").equals("Logout"))
 			{
-				System.out.println("logout trame");
+				System.out.println("Logout trame");
 				traitementLogout();
 			}
 			else if(objJson.get("MsgType").equals("UpdateList"))
@@ -79,7 +80,7 @@ public class Link implements Runnable, DecoSource
 				}
 			}
 			else{
-				System.out.println("other trame");
+				System.out.println("Other trame");
 				this.myComManager.transmissionMessage(objJson, this);
 			}
 		}
@@ -88,8 +89,7 @@ public class Link implements Runnable, DecoSource
 	public void traitementIdent(JSONObject objJson){
 		this.sIpClient = (String) objJson.get("From");
 		checkOld();
-		System.out.println("Ip client = ");
-		System.out.println(sIpClient);
+		this.myComManager.writeConsoleLog("Ip client = " + sIpClient);
 		sendRobotList();
 	}
 	
@@ -110,8 +110,8 @@ public class Link implements Runnable, DecoSource
 	{
 		try 
 		{
-			System.out.println(this.sIpClient);
-			NetworkFlow.writeMessage(out, sMessage);
+			this.myComManager.writeConsoleLog("Message envoye : " + sMessage);
+			NetworkFlow.writeMessageNet(out, sMessage);
 		}
 		catch (IOException e)
 		{
@@ -135,7 +135,7 @@ public class Link implements Runnable, DecoSource
 		{
 			try 
 			{
-				sChaine = NetworkFlow.readMessage(this.inBuffer); //Lecture des messages venant du client
+				sChaine = NetworkFlow.readMessageNet(this.inBuffer); //Lecture des messages venant du client
 				traitementReception(sChaine);
 				Thread.yield();
 			} 
@@ -149,9 +149,11 @@ public class Link implements Runnable, DecoSource
 				catch (IOException e1) 
 				{
 					//e1.printStackTrace();
-					System.out.println("Problem : "+e1.toString());
+					this.myComManager.writeConsoleLog("Problem : "+e1.toString());
+					//System.out.println("Problem : "+e1.toString());
 				}
-				System.out.println("Problem : "+e2.toString());
+				this.myComManager.writeConsoleLog("Problem : "+e2.toString());
+				//System.out.println("Problem : "+e2.toString());
 				bRunLink = false;
 			}
 			catch(IOException e) 
@@ -164,9 +166,11 @@ public class Link implements Runnable, DecoSource
 				} 
 				catch (IOException e1) 
 				{
-					System.out.println("Problem : "+e1.toString());
+					this.myComManager.writeConsoleLog("Problem : "+e1.toString());
+					//System.out.println("Problem : "+e1.toString());
 				}
-				System.out.println("Problem : "+e.toString());
+				//System.out.println("Problem : "+e.toString());
+				this.myComManager.writeConsoleLog("Problem : "+e.toString());
 				bRunLink = false;
 			}
 		}

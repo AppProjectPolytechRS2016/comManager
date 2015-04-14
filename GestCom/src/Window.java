@@ -3,11 +3,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 @SuppressWarnings("serial")
-public class Window extends JFrame implements ActionListener, ListSelectionListener{
+public class Window extends JFrame implements ActionListener
+{
 
 	//Declaration des attributs
 	
@@ -39,12 +38,20 @@ public class Window extends JFrame implements ActionListener, ListSelectionListe
 	private JLabel jLabelConsole = new JLabel("Message systeme :");
 	
 	//Pour Champ Device
+	private JLabel jLabelDevice = new JLabel("Liste des Devices :");
+	private DefaultListModel jListModelDevice = new DefaultListModel();
+	private JList jListDevice = new JList(jListModelDevice);
+	
+	//Pour Champ Device
+	private JLabel jLabelRobot = new JLabel("Liste des Robots :");
+	private DefaultListModel jListModelRobot = new DefaultListModel();
+	private JList jListRobot = new JList(jListModelRobot);
 	
 	private Color couleur = new Color(255, 0, 140);
 	
 	public Window(ComManager comManager)
 	{
-		super("Hello world");
+		super("Gestionnaire de Communications");
 		//Personnalisation de la fenetre
 		setSize(500, 500);
 		setLocationRelativeTo(null);
@@ -60,10 +67,11 @@ public class Window extends JFrame implements ActionListener, ListSelectionListe
 		this.addPanel();
 		this.addIPInfo();
 		this.addBouton();
-		//this.addListe();
+		this.addListeDevice();
+		this.addListeRobot();
 		this.addTextConsole();
 		this.setVisible(true);
-		pack();
+		//pack();
 	}
 	
 	public void addPanel()
@@ -102,33 +110,40 @@ public class Window extends JFrame implements ActionListener, ListSelectionListe
 	public void addTextConsole()
 	{
 		this.jTextAreaConsole.setEditable(false);
+		this.jTextAreaConsole.setRows(5);
 		this.panBottom.setLayout(new BoxLayout(panBottom, BoxLayout.PAGE_AXIS));
 		this.panBottom.add(this.jLabelConsole);
 		this.panBottom.add(this.jScrollPaneConsole);
 	}
 	
-	/*
-	public void addListe(){
-		this.panListe.add(liste1);
-		this.getContentPane().add(panListe,BorderLayout.EAST);
-		liste1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		liste1.addListSelectionListener(this);
-		
-		//Comportement au lancement de l'application
-		if(radioButton2.isSelected()){
-			liste1.setEnabled(true);
-		}
-		else{
-			liste1.setEnabled(false);
-		}
-	}*/
+	
+	public void addListeDevice(){
+		this.panLeft.setLayout(new BoxLayout(panLeft, BoxLayout.PAGE_AXIS));
+		this.panLeft.add(jLabelDevice);
+		this.panLeft.add(jListDevice);
+	}
+	
+	public void addListeRobot(){
+		this.panRight.setLayout(new BoxLayout(panRight, BoxLayout.PAGE_AXIS));
+		this.panRight.add(jLabelRobot);
+		this.panRight.add(jListRobot);
+	}
 	
 	public void writeTextC(String Text)
 	{
 		this.jTextAreaConsole.append(Text+'\n');
-		pack();
+	}
+	
+	public void writeListeDevice(String name)
+	{
+		this.jListModelDevice.addElement(name);
 	}
 
+	public void writeListeRobot(String name)
+	{
+		this.jListModelRobot.addElement(name);
+	}
+	
 	public void actionPerformed(ActionEvent arg0) {
 		Object source = arg0.getSource();
 		
@@ -138,12 +153,6 @@ public class Window extends JFrame implements ActionListener, ListSelectionListe
 			this.jButtonStart.setEnabled(false);
 			this.myComManager.startComManager();
 		}
-	}
-	
-	public void valueChanged(ListSelectionEvent arg0) {
-		/*if(arg0.getValueIsAdjusting()==false){
-			l1.setText((String)liste1.getSelectedValue());
-		}*/
 	}
 }
 

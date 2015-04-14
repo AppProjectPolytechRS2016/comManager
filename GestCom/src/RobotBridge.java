@@ -27,7 +27,8 @@ public class RobotBridge implements Runnable {
 	
 	public void run(){
 		int nb_clients = 0;
-		System.out.println("Robot Bridge online!");
+		//System.out.println("Robot Bridge online!");
+		this.myComManager.writeConsoleLog("Robot Bridge online!");
 		bRunRobotBridge = true;
 		try
 		{
@@ -35,10 +36,12 @@ public class RobotBridge implements Runnable {
 			
 			while (bRunRobotBridge)
 			{
-				System.out.println("Waiting for robot ...");
+				//System.out.println("Waiting for robot ...");
+				this.myComManager.writeConsoleLog("Waiting for robot ...");
 				Socket sockcli = sockServRobot.accept();  //Attente de la connexion d'un client
 				nb_clients++;
-				System.out.println("Robot connection ok");
+				//System.out.println("Robot connection ok");
+				this.myComManager.writeConsoleLog("Robot connection ok");
 				newRobotLink = new RobotLink(myExecServ, sockcli, myComManager);  //Creation de l'objet de communication avec le client
 				//this.myComManager.addRobot(newRobotLink);   						//add Robotlink to myComManager's list
 				this.newRobotLink.idClientServeur = nb_clients;

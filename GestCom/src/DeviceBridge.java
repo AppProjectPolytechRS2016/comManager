@@ -27,7 +27,8 @@ public class DeviceBridge implements Runnable{
 
 	public void run(){
 		int nb_clients = 0;
-		System.out.println("Device Bridge online!");
+		//System.out.println("Device Bridge online!");
+		this.myComManager.writeConsoleLog("Device Bridge online!");
 		bRunDeviceBridge = true;
 		try
 		{
@@ -35,10 +36,12 @@ public class DeviceBridge implements Runnable{
 			
 			while (bRunDeviceBridge)
 			{
-				System.out.println("Waiting for device ...");
+				//System.out.println("Waiting for device ...");
+				this.myComManager.writeConsoleLog("Waiting for device ...");
 				Socket sockcli = sockServDevice.accept();  //Attente de la connexion d'un client
 				nb_clients++;
-				System.out.println("Device connection ok");
+				//System.out.println("Device connection ok");
+				this.myComManager.writeConsoleLog("Device connection ok");
 				newDeviceLink = new DeviceLink(myExecServ, sockcli, myComManager);  //Creation de l'objet de communication avec le client
 				//this.myComManager.addDevice(newDeviceLink);    						//add DeviceLink to myComManager's list
 				this.newDeviceLink.idClientServeur = nb_clients;

@@ -48,12 +48,26 @@ public class ComManager implements DecoObserver
 		if(obj.getClass() == DeviceLink.class) //if message is for a Robot
 		{
 			index = findRobot((String)objJson.get("To"));
-			this.arRobotLink.get(index).envoieMessageClient(objJson.toJSONString());
+			if(index != -1)
+			{
+				this.arRobotLink.get(index).envoieMessageClient(objJson.toJSONString());
+			}
+			else
+			{
+				this.writeConsoleLog("Error while routing message !!!");
+			}
 		}
 		else if (obj.getClass() ==  RobotLink.class)//if message is for a Device
 		{
 			index = findDevice((String)objJson.get("To"));
-			this.arDeviceLink.get(index).envoieMessageClient(objJson.toJSONString());
+			if(index != -1)
+			{
+				this.arDeviceLink.get(index).envoieMessageClient(objJson.toJSONString());
+			}
+			else
+			{
+				this.writeConsoleLog("Error while routing message !!!");
+			}
 		}
 		else
 		{
@@ -80,11 +94,10 @@ public class ComManager implements DecoObserver
 	/**Find a device by is IP*/
 	public int findDevice(String sIp)
 	{
-		int index = 0;
+		int index = -1;
 		
 		for(int iBcl = 0; iBcl < this.arDeviceLink.size(); iBcl++)
 		{
-			System.out.println(this.arDeviceLink.get(iBcl).sIpClient);
 			if(this.arDeviceLink.get(iBcl).sIpClient.equals(sIp))
 			{
 				index = iBcl;
@@ -110,8 +123,8 @@ public class ComManager implements DecoObserver
 		return arDeviceLink;
 	}
 	
-	public Window getMyWindow() {
-		return myWindow;
+	public void writeConsoleLog(String message){
+		this.myWindow.writeTextC(message);
 	}
 	
 	public String getMyIp() {
@@ -123,23 +136,26 @@ public class ComManager implements DecoObserver
 	{
 		if(obj.getClass() == DeviceLink.class)
 		{
-			System.out.println("Deconnexion Device !!!");
+			//System.out.println("Deconnexion Device !!!");
+			this.writeConsoleLog("Deconnexion Device !!!");
 			this.arDeviceLink.remove(obj);
 		}
 		else if(obj.getClass() == RobotLink.class)
 		{
-			System.out.println("Deconnexion Robot !!!");
+			//System.out.println("Deconnexion Robot !!!");
+			this.writeConsoleLog("Deconnexion Robot !!!");
 			this.arRobotLink.remove(obj);
 		}
 		else
 		{
-			System.out.println("Problem de type logout !!!");
+			//System.out.println("Problem de type logout !!!");
+			this.writeConsoleLog("Problem de type logout !!!");
 		}
 	}
 	
 	public static void main (String args[])
 	{
 		ExecutorService es = Executors.newFixedThreadPool(13); //Allow 10 connections (devices and robots mingled)  
-		ComManager comManager = new ComManager(es); //ComManager's instantiation
+		new ComManager(es); //ComManager's instantiation
 	}
 }

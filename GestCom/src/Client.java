@@ -51,7 +51,7 @@ public class Client implements Runnable
 	
 	public void writeMessage(String sLeMessage){
 		try {
-			NetworkFlow.writeMessage(out, sLeMessage);
+			NetworkFlow.writeMessageNet(out, sLeMessage);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
