@@ -9,14 +9,10 @@ public class Window extends JFrame implements ActionListener
 {
 
 	//Declaration des attributs
-	
-	JButton bSortie = new JButton("Sortir");
-	JLabel l1 = new JLabel("Bonjour");
-	JRadioButton radioButton1 = new JRadioButton("Fonction 1",true);
-	JRadioButton radioButton2 = new JRadioButton("Fonction 2",false);
-	ButtonGroup group = new ButtonGroup();
-	JDialog dialogue = new JDialog();
 	private ComManager myComManager;
+	private Color textColor = new Color(0x86, 0x37, 0x2E);
+	private Color backgroundColor = new Color(0x3D, 0x06, 0x06);
+	private Color listColor = new Color(0xBA, 0x7F, 0x78);
 	
 	//Declaration de JPanels de structure
 	private JPanel panTop = new JPanel();
@@ -31,7 +27,7 @@ public class Window extends JFrame implements ActionListener
 	
 	//Pour Champ Bouton de connexion
 	private JButton jButtonStart = new JButton("Start");
-	
+
 	//Pour Champ Console
 	private JTextArea jTextAreaConsole = new JTextArea();
 	private JScrollPane jScrollPaneConsole = new JScrollPane(jTextAreaConsole);
@@ -47,18 +43,15 @@ public class Window extends JFrame implements ActionListener
 	private DefaultListModel jListModelRobot = new DefaultListModel();
 	private JList jListRobot = new JList(jListModelRobot);
 	
-	private Color couleur = new Color(255, 0, 140);
-	
 	public Window(ComManager comManager)
 	{
-		super("Gestionnaire de Communications");
+		super("APPRS2016 - Gestionnaire de Communications");
 		//Personnalisation de la fenetre
 		setSize(500, 500);
 		setLocationRelativeTo(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setBackground(couleur);
-				
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		this.myComManager = comManager;
+		this.setBackground(backgroundColor);
 	}
 	
 	public void add()
@@ -71,11 +64,15 @@ public class Window extends JFrame implements ActionListener
 		this.addListeRobot();
 		this.addTextConsole();
 		this.setVisible(true);
-		//pack();
 	}
 	
 	public void addPanel()
 	{
+		this.panBottom.setBackground(backgroundColor);
+		this.panTop.setBackground(backgroundColor);
+		this.panLeft.setBackground(backgroundColor);
+		this.panCenter.setBackground(backgroundColor);
+		this.panRight.setBackground(backgroundColor);
 		this.getContentPane().add(this.panTop,BorderLayout.NORTH);
 		this.getContentPane().add(this.panBottom,BorderLayout.SOUTH);
 		this.getContentPane().add(this.panLeft,BorderLayout.WEST);
@@ -83,20 +80,14 @@ public class Window extends JFrame implements ActionListener
 		this.getContentPane().add(this.panRight,BorderLayout.EAST);
 	}
 	
-	public void dialog()
-	{
-		int reponse = JOptionPane.showConfirmDialog(null, "Voulez vous quitter ce programme ?", 
-				"Sortir", JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
-		if(reponse == JOptionPane.YES_OPTION){
-			System.exit(0);  //Fin de l'aaplication
-		}
-	}
-	
 	public void addIPInfo ()
 	{
+		this.jLabelIp.setForeground(textColor);
 		this.panTop.add(jLabelIp);
 		this.jTextIp.append(this.myComManager.getMyIp());
 		this.jTextIp.setEditable(false);
+		this.jTextIp.setBackground(backgroundColor);
+		this.jTextIp.setForeground(Color.white);
 		this.panTop.add(jTextIp);
 		
 	}
@@ -109,21 +100,29 @@ public class Window extends JFrame implements ActionListener
 	
 	public void addTextConsole()
 	{
+		this.jLabelConsole.setForeground(textColor);
 		this.jTextAreaConsole.setEditable(false);
-		this.jTextAreaConsole.setRows(5);
+		this.jTextAreaConsole.setRows(10);
+		this.jTextAreaConsole.setBackground(listColor);
 		this.panBottom.setLayout(new BoxLayout(panBottom, BoxLayout.PAGE_AXIS));
 		this.panBottom.add(this.jLabelConsole);
 		this.panBottom.add(this.jScrollPaneConsole);
 	}
 	
 	
-	public void addListeDevice(){
+	public void addListeDevice()
+	{
+		this.jLabelDevice.setForeground(textColor);
+		this.jListDevice.setBackground(listColor);
 		this.panLeft.setLayout(new BoxLayout(panLeft, BoxLayout.PAGE_AXIS));
 		this.panLeft.add(jLabelDevice);
 		this.panLeft.add(jListDevice);
 	}
 	
-	public void addListeRobot(){
+	public void addListeRobot()
+	{
+		this.jListRobot.setBackground(listColor);
+		this.jLabelRobot.setForeground(textColor);
 		this.panRight.setLayout(new BoxLayout(panRight, BoxLayout.PAGE_AXIS));
 		this.panRight.add(jLabelRobot);
 		this.panRight.add(jListRobot);
