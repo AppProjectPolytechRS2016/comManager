@@ -10,15 +10,11 @@ public class Client implements Runnable
 {
 	//Client attributes
 	private int Socketport = 6030;
-	private DataInputStream in;
 	private DataOutputStream out;
-	private boolean bRun;
-	private ExecutorService es;
 	private Socket sockcli = null;
 	
 	public Client (ExecutorService es)
 	{
-		this.es = es;
 	}
 
 	public int connexion(String url)
@@ -32,7 +28,7 @@ public class Client implements Runnable
 
 		if(sockcli.isConnected()){
 			try {
-				this.in = new DataInputStream(sockcli.getInputStream());
+				new DataInputStream(sockcli.getInputStream());
 				this.out = new DataOutputStream(sockcli.getOutputStream());
 			} 
 			catch (IOException e) {
@@ -70,8 +66,7 @@ public class Client implements Runnable
 	}
 	public void run ()
 	{	
-		bRun  = true;
-//		while(sockcli.isConnected() && bRun)
+		//		while(sockcli.isConnected() && bRun)
 //		{
 //			try { 
 //				traitementReception(Flux.lectureMessage(in)); //Envoie du message

@@ -35,13 +35,13 @@ public class Window extends JFrame implements ActionListener
 	
 	//Pour Champ Device
 	private JLabel jLabelDevice = new JLabel("Liste des Devices :");
-	private DefaultListModel jListModelDevice = new DefaultListModel();
-	private JList jListDevice = new JList(jListModelDevice);
+	private DefaultListModel<String> jListModelDevice = new DefaultListModel<String>();
+	private JList<String> jListDevice = new JList<String>(jListModelDevice);
 	
 	//Pour Champ Device
 	private JLabel jLabelRobot = new JLabel("Liste des Robots :");
-	private DefaultListModel jListModelRobot = new DefaultListModel();
-	private JList jListRobot = new JList(jListModelRobot);
+	private DefaultListModel<String> jListModelRobot = new DefaultListModel<String>();
+	private JList<String> jListRobot = new JList<String>(jListModelRobot);
 	
 	public Window(ComManager comManager)
 	{
@@ -128,27 +128,27 @@ public class Window extends JFrame implements ActionListener
 		this.panRight.add(jListRobot);
 	}
 	
-	public void writeTextC(String Text)
+	public synchronized void writeTextC(String Text)
 	{
 		this.jTextAreaConsole.append(Text+"\n");
 	}
 	
-	public void writeListeDevice(String name)
+	public synchronized void writeListeDevice(String name)
 	{
 		this.jListModelDevice.addElement(name);
 	}
 
-	public void writeListeRobot(String name)
+	public synchronized void writeListeRobot(String name)
 	{
 		this.jListModelRobot.addElement(name);
 	}
 	
-	public void removeListeDevice(int index)
+	public synchronized void removeListeDevice(int index)
 	{
 		this.jListModelDevice.removeElementAt(index);;
 	}
 
-	public void removeListeRobot(int index)
+	public synchronized void removeListeRobot(int index)
 	{
 		this.jListModelRobot.removeElementAt(index);
 	}
