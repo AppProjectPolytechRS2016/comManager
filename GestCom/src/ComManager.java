@@ -161,7 +161,7 @@ public class ComManager implements DecoObserver
 	
 	public static void main (String args[])
 	{
-		ExecutorService es = Executors.newFixedThreadPool(13); //Allow 10 connections (devices and robots mingled)  
+		ExecutorService es = Executors.newFixedThreadPool(100); //Allow 10 connections (devices and robots mingled)  
 		new ComManager(es); //ComManager's instantiation
 	}
 }

@@ -101,6 +101,7 @@ public class Window extends JFrame implements ActionListener
 	public void addTextConsole()
 	{
 		this.jLabelConsole.setForeground(textColor);
+		this.jTextAreaConsole.setCaretPosition(this.jTextAreaConsole.getDocument().getLength());
 		this.jTextAreaConsole.setEditable(false);
 		this.jTextAreaConsole.setRows(10);
 		this.jTextAreaConsole.setBackground(listColor);
@@ -131,6 +132,7 @@ public class Window extends JFrame implements ActionListener
 	public synchronized void writeTextC(String Text)
 	{
 		this.jTextAreaConsole.append(Text+"\n");
+		this.jTextAreaConsole.setCaretPosition(this.jTextAreaConsole.getDocument().getLength());
 	}
 	
 	public synchronized void writeListeDevice(String name)

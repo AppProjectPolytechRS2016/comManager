@@ -98,6 +98,7 @@ public class Link implements Runnable, DecoSource
 	}
 	
 	public void traitementLogout(){
+		this.bRunLink = false;
 		notifyObserver();	
 	}
 	
