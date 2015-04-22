@@ -11,6 +11,11 @@ public class DeviceBridge implements Runnable{
 	private ServerSocket sockServDevice;
 	private boolean bRunDeviceBridge;
 	
+	/**Constructor of DeviceBridge's object
+	 * 
+	 * @param myComManager
+	 * @param myExecServ
+	 */
 	public DeviceBridge(ComManager myComManager, ExecutorService myExecServ) {
 		this.myComManager = myComManager;
 		this.myExecServ = myExecServ;

@@ -50,7 +50,7 @@ public class ComManager implements DecoObserver
 			index = findRobot((String)objJson.get("To"));
 			if(index != -1)
 			{
-				this.arRobotLink.get(index).envoieMessageClient(objJson.toJSONString());
+				this.arRobotLink.get(index).sendMessageToClient(objJson.toJSONString());
 			}
 			else
 			{
@@ -62,7 +62,7 @@ public class ComManager implements DecoObserver
 			index = findDevice((String)objJson.get("To"));
 			if(index != -1)
 			{
-				this.arDeviceLink.get(index).envoieMessageClient(objJson.toJSONString());
+				this.arDeviceLink.get(index).sendMessageToClient(objJson.toJSONString());
 			}
 			else
 			{

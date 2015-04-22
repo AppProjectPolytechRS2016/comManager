@@ -5,7 +5,12 @@ import java.io.IOException;
 
 public class NetworkFlow
 {
-	/**Methode permettant d'ecrire un message sur le flux reseau de sortie */
+	/**Method to write a message over the network
+	 * 
+	 * @param out
+	 * @param s
+	 * @throws IOException
+	 */
 	public static void writeMessageNet(DataOutputStream out, String s) throws IOException
 	{
 		s.concat("\r\n");
@@ -13,6 +18,13 @@ public class NetworkFlow
 		out.write(message);
 	}
 	
+	/**Method to read a message from the network
+	 * 
+	 * @param in
+	 * @return
+	 * @throws IOException
+	 * @throws EOFException
+	 */
 	public static String readMessageNet(BufferedReader in) throws IOException,EOFException
 	{
 		return in.readLine();

@@ -11,6 +11,11 @@ public class RobotBridge implements Runnable {
 	private ServerSocket sockServRobot;
 	private boolean bRunRobotBridge;
 
+	/**Constructor of Link's object
+	 * 
+	 * @param myComManager
+	 * @param myExecServ
+	 */
 	public RobotBridge(ComManager myComManager, ExecutorService myExecServ) {
 		this.myComManager = myComManager;
 		this.myExecServ = myExecServ;

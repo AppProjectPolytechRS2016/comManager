@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
 import org.json.simple.JSONObject;
 
 public class Client implements Runnable
@@ -64,6 +65,7 @@ public class Client implements Runnable
 			e.printStackTrace();
 		}
 	}
+	@SuppressWarnings("unchecked")
 	public void run ()
 	{	
 		//		while(sockcli.isConnected() && bRun)

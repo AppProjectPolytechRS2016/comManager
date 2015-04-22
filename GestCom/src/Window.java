@@ -43,6 +43,10 @@ public class Window extends JFrame implements ActionListener
 	private DefaultListModel<String> jListModelRobot = new DefaultListModel<String>();
 	private JList<String> jListRobot = new JList<String>(jListModelRobot);
 	
+	/**Constructor of Window's object
+	 * 
+	 * @param comManager
+	 */
 	public Window(ComManager comManager)
 	{
 		super("APPRS2016 - Gestionnaire de Communications");
@@ -54,18 +58,24 @@ public class Window extends JFrame implements ActionListener
 		this.setBackground(backgroundColor);
 	}
 	
+	/**Add components to window
+	 * 
+	 */
 	public void add()
 	{
 		//Ajout des �lements
 		this.addPanel();
 		this.addIPInfo();
-		this.addBouton();
+		this.addButton();
 		this.addListeDevice();
 		this.addListeRobot();
 		this.addTextConsole();
 		this.setVisible(true);
 	}
 	
+	/**Add JPanel to JFrame and set
+	 * 
+	 */
 	public void addPanel()
 	{
 		this.panBottom.setBackground(backgroundColor);
@@ -80,6 +90,9 @@ public class Window extends JFrame implements ActionListener
 		this.getContentPane().add(this.panRight,BorderLayout.EAST);
 	}
 	
+	/**Add IP information to JPanel
+	 * 
+	 */
 	public void addIPInfo ()
 	{
 		this.jLabelIp.setForeground(textColor);
@@ -92,12 +105,18 @@ public class Window extends JFrame implements ActionListener
 		
 	}
 	
-	public void addBouton ()
+	/**Add button to JPanel
+	 * 
+	 */
+	public void addButton ()
 	{
 		this.panCenter.add(jButtonStart);
 		jButtonStart.addActionListener(this);
 	}
 	
+	/**Add elements to GUI's console
+	 * 
+	 */
 	public void addTextConsole()
 	{
 		this.jLabelConsole.setForeground(textColor);
@@ -110,7 +129,9 @@ public class Window extends JFrame implements ActionListener
 		this.panBottom.add(this.jScrollPaneConsole);
 	}
 	
-	
+	/**Add elements to Device's list of GUI
+	 * 
+	 */
 	public void addListeDevice()
 	{
 		this.jLabelDevice.setForeground(textColor);
@@ -120,6 +141,9 @@ public class Window extends JFrame implements ActionListener
 		this.panLeft.add(jListDevice);
 	}
 	
+	/**Add elements to Robot's list of GUI
+	 * 
+	 */
 	public void addListeRobot()
 	{
 		this.jListRobot.setBackground(listColor);

@@ -11,7 +11,7 @@ import org.json.simple.JSONValue;
 
 public class Link implements Runnable, DecoSource
 {
-	protected ExecutorService es; //Definition du groupe de taches */
+	protected ExecutorService es; //Definition du groupe de taches
 	protected Socket socklink = null; //Definition socket pour communiquer avec le client
 	
 	//protected DataInputStream in;
@@ -26,6 +26,12 @@ public class Link implements Runnable, DecoSource
 	protected String sName; 
 	protected boolean bRunLink;
 	
+	/**Constructor of Link's object
+	 * 
+	 * @param es
+	 * @param sockcli
+	 * @param myComManager
+	 */
 	public Link (ExecutorService es, Socket sockcli, ComManager myComManager)
 	{
 		this.es = es;
@@ -46,8 +52,11 @@ public class Link implements Runnable, DecoSource
 		}
 	}
 	
-	/**Method to deal with JSON trame*/
-	public void traitementReception(String sMessage)
+	/**Method to deal with JSON frame
+	 * 
+	 *@param
+	 */
+	public void proccesingOnReception(String sMessage)
 	{
 		if(sMessage != null)
 		{
@@ -60,19 +69,19 @@ public class Link implements Runnable, DecoSource
 			if(objJson.get("MsgType").equals("Ident"))
 			{
 				System.out.println("Ident trame");
-				traitementIdent(objJson);
+				prcossessingIdent(objJson);
 			}
 			else if(objJson.get("MsgType").equals("Logout"))
 			{
 				System.out.println("Logout trame");
-				traitementLogout();
+				prcossessingLogout();
 			}
 			else if(objJson.get("MsgType").equals("UpdateList"))
 			{
 				if(this.getClass() == DeviceLink.class)
 				{
 					System.out.println("Update list trame");
-					sendRobotList();
+					sendInformation();
 				}
 				else
 				{
@@ -86,32 +95,51 @@ public class Link implements Runnable, DecoSource
 		}
 	}
 	
-	public void traitementIdent(JSONObject objJson){
+	/**Process on Identification frame
+	 * 
+	 * @param objJson
+	 */
+	public void prcossessingIdent(JSONObject objJson){
 		this.sIpClient = (String) objJson.get("From");
 		checkOld();
 		this.myComManager.writeConsoleLog("Ip client = " + sIpClient);
 		printIp();
-		sendRobotList();
+		sendInformation();
 	}
 	
+	/**Insert IP in the GUI
+	 * 
+	 */
 	public void printIp(){
 	}
 	
-	public void traitementLogout(){
+	/**Process on Logout frame
+	 * 
+	 */
+	public void prcossessingLogout(){
 		this.bRunLink = false;
 		notifyObserver();	
 	}
 	
+	/**Check if a previous version of the object is present in ComManager table
+	 * 
+	 */
 	public void checkOld(){
 		
 	}
 	
-	public void sendRobotList(){
+	/**Send data to the client
+	 * 
+	 */
+	public void sendInformation(){
 		
 	}
 	
-	/**Methode Permettant l'envoie de message au client */
-	public void envoieMessageClient(String sMessage)
+	/**Method sending a message to the client
+	 * 
+	 *@param 
+	 */
+	public void sendMessageToClient(String sMessage)
 	{
 		try 
 		{
@@ -125,12 +153,6 @@ public class Link implements Runnable, DecoSource
 		}
 	}
 	
-	/** Methode renvoyant l'Id du client*/
-	public int getIdClientServeur()
-	{
-		return idClientServeur;
-	}
-	
 	public void run()
 	{
 		bRunLink = true;
@@ -141,7 +163,7 @@ public class Link implements Runnable, DecoSource
 			try 
 			{
 				sChaine = NetworkFlow.readMessageNet(this.inBuffer); //Lecture des messages venant du client
-				traitementReception(sChaine);
+				proccesingOnReception(sChaine);
 				Thread.yield();
 			} 
 			catch(SocketException e2)
