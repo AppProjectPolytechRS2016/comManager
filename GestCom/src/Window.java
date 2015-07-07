@@ -44,7 +44,7 @@ public class Window extends JFrame implements ActionListener
 	private JList<String> jListRobot = new JList<String>(jListModelRobot);
 	
 	/**Constructor of Window's object
-	 * 
+	 * @author Jerome
 	 * @param comManager
 	 */
 	public Window(ComManager comManager)
@@ -59,7 +59,7 @@ public class Window extends JFrame implements ActionListener
 	}
 	
 	/**Add components to window
-	 * 
+	 * @author Jerome
 	 */
 	public void add()
 	{
@@ -74,7 +74,7 @@ public class Window extends JFrame implements ActionListener
 	}
 	
 	/**Add JPanel to JFrame and set
-	 * 
+	 * @author Jerome
 	 */
 	public void addPanel()
 	{
@@ -91,7 +91,7 @@ public class Window extends JFrame implements ActionListener
 	}
 	
 	/**Add IP information to JPanel
-	 * 
+	 * @author Jerome
 	 */
 	public void addIPInfo ()
 	{
@@ -106,7 +106,7 @@ public class Window extends JFrame implements ActionListener
 	}
 	
 	/**Add button to JPanel
-	 * 
+	 * @author Jerome
 	 */
 	public void addButton ()
 	{
@@ -115,7 +115,7 @@ public class Window extends JFrame implements ActionListener
 	}
 	
 	/**Add elements to GUI's console
-	 * 
+	 * @author Jerome
 	 */
 	public void addTextConsole()
 	{
@@ -130,7 +130,7 @@ public class Window extends JFrame implements ActionListener
 	}
 	
 	/**Add elements to Device's list of GUI
-	 * 
+	 * @author Jerome
 	 */
 	public void addListeDevice()
 	{
@@ -142,7 +142,7 @@ public class Window extends JFrame implements ActionListener
 	}
 	
 	/**Add elements to Robot's list of GUI
-	 * 
+	 * @author Jerome
 	 */
 	public void addListeRobot()
 	{
@@ -153,6 +153,10 @@ public class Window extends JFrame implements ActionListener
 		this.panRight.add(jListRobot);
 	}
 	
+	/**Write a message to the console
+	 * @author Jerome
+	 * @param Text
+	 */
 	public synchronized void writeTextC(String Text)
 	{
 		this.jTextAreaConsole.append(Text+"\n");
@@ -179,10 +183,10 @@ public class Window extends JFrame implements ActionListener
 		this.jListModelRobot.removeElementAt(index);
 	}
 	
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent arg0) 
+	{
 		Object source = arg0.getSource();
 		
-		//Selection en fonction de l'emetteur de l'evenement
 		if (source == this.jButtonStart)
 		{
 			this.jButtonStart.setEnabled(false);

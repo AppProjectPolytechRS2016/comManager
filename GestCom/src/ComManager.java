@@ -13,19 +13,22 @@ public class ComManager implements DecoObserver
 	//ComManager attribute
 	private RobotBridge myRobotBridge;
 	private DeviceBridge myDeviceBridge;
-	private ArrayList<RobotLink> arRobotLink = new ArrayList<RobotLink>(); //ArrayList contenant les clients du serveur
-	private ArrayList<DeviceLink> arDeviceLink = new ArrayList<DeviceLink>(); //ArrayList contenant les clients du serveur
-	private ExecutorService es;            //Definition du groupe de threads
+	private ArrayList<RobotLink> arRobotLink = new ArrayList<RobotLink>(); //ArrayList of RobotLink
+	private ArrayList<DeviceLink> arDeviceLink = new ArrayList<DeviceLink>(); //ArrayList of DeviceLink
+	private ExecutorService es;
 	private Window myWindow;
 	private String myIp;
 	
-	
+	/**Constructor of ComManager
+	 * @author Jerome
+	 * @param ExecutorService es
+	 */
 	public ComManager(ExecutorService es)
 	{
 		this.es = es;
 		try
 		{
-            this.myIp = InetAddress.getLocalHost().getHostAddress();
+            this.myIp = InetAddress.getLocalHost().getHostAddress(); //Get host IP
             //System.out.println("ComManager address is : " + this.myIp);
 		}
 		catch (IOException ex) {}
@@ -33,6 +36,9 @@ public class ComManager implements DecoObserver
 		this.myWindow.add();		
 	}
 	
+	/**Method to start ComManager
+	 * @author Jerome
+	 */
 	public void startComManager ()
 	{
 		this.myDeviceBridge = new DeviceBridge(this, es);
@@ -41,7 +47,11 @@ public class ComManager implements DecoObserver
 		es.execute(myRobotBridge);
 	}
 	
-	/** Methode permettant de transmettre au destinataire un message provenant d'un client */
+	/**Method to route a message to a client
+	 * @author Jerome
+	 * @param objJson
+	 * @param obj
+	 */
 	public void transmissionMessage(JSONObject objJson, Object obj) {
 		int index; 
 		
@@ -75,7 +85,10 @@ public class ComManager implements DecoObserver
 		}	
 	}
 	
-	/**Find a robot by is IP*/
+	/**Find a robot by is IP in the ArrayList
+	 * @author Jerome
+	 * @param
+	 */
 	public int findRobot(String sIp)
 	{
 		int index = -1;
@@ -91,7 +104,10 @@ public class ComManager implements DecoObserver
 		return index;
 	}
 	
-	/**Find a device by is IP*/
+	/**Find a device by is IP in the ArrayList
+	 * @author Jerome
+	 * @param
+	 */
 	public int findDevice(String sIp)
 	{
 		int index = -1;
@@ -107,31 +123,41 @@ public class ComManager implements DecoObserver
 		return index;
 	}
 	
-	public void addDevice (DeviceLink newDevice){
+	public void addDevice (DeviceLink newDevice)
+	{
 		this.arDeviceLink.add(newDevice);
 	}
 
-	public void addRobot (RobotLink newRobot){
+	public void addRobot (RobotLink newRobot)
+	{
 		this.arRobotLink.add(newRobot);
 	}
 	
-	public ArrayList<RobotLink> getArRobotLink() {
+	public ArrayList<RobotLink> getArRobotLink() 
+	{
 		return arRobotLink;
 	}
 
-	public ArrayList<DeviceLink> getArDeviceLink() {
+	public ArrayList<DeviceLink> getArDeviceLink() 
+	{
 		return arDeviceLink;
 	}
-	
-	public void writeConsoleLog(String message){
+	/**Write a message in the console of the GUI
+	 * @author Jerome
+	 * @param message
+	 */
+	public void writeConsoleLog(String message)
+	{
 		this.myWindow.writeTextC(message);
 	}
 	
-	public String getMyIp() {
+	public String getMyIp() 
+	{
 		return myIp;
 	}
 
-	public Window getMyWindow() {
+	public Window getMyWindow() 
+	{
 		return myWindow;
 	}
 
@@ -142,14 +168,14 @@ public class ComManager implements DecoObserver
 		{
 			//System.out.println("Deconnexion Device !!!");
 			this.writeConsoleLog("Deconnexion Device !!!");
-			this.myWindow.removeListeDevice(this.arDeviceLink.indexOf(obj));
+			this.myWindow.removeListeDevice(this.arDeviceLink.indexOf(obj)); //Remove Device from the ArrayList
 			this.arDeviceLink.remove(obj);
 		}
 		else if(obj.getClass() == RobotLink.class)
 		{
 			//System.out.println("Deconnexion Robot !!!");
 			this.writeConsoleLog("Deconnexion Robot !!!");
-			this.myWindow.removeListeRobot(this.arRobotLink.indexOf(obj));
+			this.myWindow.removeListeRobot(this.arRobotLink.indexOf(obj)); //Remove Robot from the ArrayList
 			this.arRobotLink.remove(obj);
 		}
 		else

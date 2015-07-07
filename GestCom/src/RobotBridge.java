@@ -3,16 +3,15 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 
-
-public class RobotBridge implements Runnable {
-	
+public class RobotBridge implements Runnable 
+{	
 	private ComManager myComManager;
 	private ExecutorService myExecServ;
 	private ServerSocket sockServRobot;
 	private boolean bRunRobotBridge;
 
 	/**Constructor of Link's object
-	 * 
+	 * @author Jerome
 	 * @param myComManager
 	 * @param myExecServ
 	 */
@@ -20,10 +19,12 @@ public class RobotBridge implements Runnable {
 		this.myComManager = myComManager;
 		this.myExecServ = myExecServ;
 		
-		try {
-			sockServRobot = new ServerSocket (6030);  //Definition du port d'ecoute du serveur
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		try 
+		{
+			sockServRobot = new ServerSocket (6030);   //Definition of where listening
+		} 
+		catch (IOException e) 
+		{
 			e.printStackTrace();
 		}  
 		
@@ -35,27 +36,27 @@ public class RobotBridge implements Runnable {
 		bRunRobotBridge = true;
 		try
 		{
-			sockServRobot.setSoTimeout(0); //Attente infini sur accept()
+			sockServRobot.setSoTimeout(0); //Infinite waiting on accept()
 			
 			while (bRunRobotBridge)
 			{
 				//System.out.println("Waiting for robot ...");
 				this.myComManager.writeConsoleLog("Waiting for robot ...");
-				Socket sockcli = sockServRobot.accept();  //Attente de la connexion d'un client
+				Socket sockcli = sockServRobot.accept();  //Waiting for Robot connection
 				//System.out.println("Robot connection ok");
 				this.myComManager.writeConsoleLog("Robot connection ok");
-				myExecServ.execute(new RobotLink(myExecServ, sockcli, myComManager));//On execute la methode run() de l'objet de communication
+				myExecServ.execute(new RobotLink(myExecServ, sockcli, myComManager));//Execute run() method of the DeviceLink Object
 			}
 			sockServRobot.close();
 		}
-		catch (IOException ex) { 
+		catch (IOException ex) 
+		{ 
 			try 
 			{
 				sockServRobot.close();
 			} 
 			catch (IOException e)
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

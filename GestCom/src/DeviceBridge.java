@@ -3,7 +3,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 
-
 public class DeviceBridge implements Runnable{
 	
 	private ComManager myComManager;
@@ -12,18 +11,21 @@ public class DeviceBridge implements Runnable{
 	private boolean bRunDeviceBridge;
 	
 	/**Constructor of DeviceBridge's object
-	 * 
+	 * @author Jerome
 	 * @param myComManager
 	 * @param myExecServ
 	 */
-	public DeviceBridge(ComManager myComManager, ExecutorService myExecServ) {
+	public DeviceBridge(ComManager myComManager, ExecutorService myExecServ) 
+	{
 		this.myComManager = myComManager;
 		this.myExecServ = myExecServ;
 		
-		try {
-			sockServDevice = new ServerSocket (6020);  //Definition du port d'ecoute du serveur
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		try 
+		{
+			sockServDevice = new ServerSocket (6020);  //Definition of where listening
+		} 
+		catch (IOException e) 
+		{
 			e.printStackTrace();
 		}  
 		
@@ -35,27 +37,27 @@ public class DeviceBridge implements Runnable{
 		bRunDeviceBridge = true;
 		try
 		{
-			sockServDevice.setSoTimeout(0); //Attente infini sur accept()
+			sockServDevice.setSoTimeout(0); //Infinite waiting on accept()
 			
 			while (bRunDeviceBridge)
 			{
 				//System.out.println("Waiting for device ...");
 				this.myComManager.writeConsoleLog("Waiting for device ...");
-				Socket sockcli = sockServDevice.accept();  //Attente de la connexion d'un client
+				Socket sockcli = sockServDevice.accept();  //Waiting for Device connection
 				//System.out.println("Device connection ok");
 				this.myComManager.writeConsoleLog("Device connection ok");
-				myExecServ.execute(new DeviceLink(myExecServ, sockcli, myComManager));//On execute la methode run() de l'objet de communication
+				myExecServ.execute(new DeviceLink(myExecServ, sockcli, myComManager));//Execute run() method of the DeviceLink Object
 			}
 			sockServDevice.close();
 		}
-		catch (IOException ex) { 
+		catch (IOException ex) 
+		{ 
 			try 
 			{
 				sockServDevice.close();
 			} 
 			catch (IOException e)
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

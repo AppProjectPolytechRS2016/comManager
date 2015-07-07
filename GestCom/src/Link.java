@@ -11,10 +11,9 @@ import org.json.simple.JSONValue;
 
 public class Link implements Runnable, DecoSource
 {
-	protected ExecutorService es; //Definition du groupe de taches
-	protected Socket socklink = null; //Definition socket pour communiquer avec le client
+	protected ExecutorService es;
+	protected Socket socklink = null;
 	
-	//protected DataInputStream in;
 	protected DataOutputStream out;
 	
 	protected BufferedReader  inBuffer;
@@ -27,7 +26,7 @@ public class Link implements Runnable, DecoSource
 	protected boolean bRunLink;
 	
 	/**Constructor of Link's object
-	 * 
+	 * @author Jerome
 	 * @param es
 	 * @param sockcli
 	 * @param myComManager
@@ -40,20 +39,18 @@ public class Link implements Runnable, DecoSource
 		
 		try 
 		{
-			//this.in = new DataInputStream(this.socklink.getInputStream()); //Definition des canaux de communications
 			this.out = new DataOutputStream(this.socklink.getOutputStream());
 			this.inBuffer = new BufferedReader(new InputStreamReader(
 								this.socklink.getInputStream()));
 		} 
 		catch (IOException e) 
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
 	/**Method to deal with JSON frame
-	 * 
+	 *@author Jerome
 	 *@param
 	 */
 	public void proccesingOnReception(String sMessage)
@@ -61,12 +58,12 @@ public class Link implements Runnable, DecoSource
 		if(sMessage != null)
 		{
 			//System.out.println("Message recu par le serveur : "+sMessage);
-			this.myComManager.writeConsoleLog("Message recu par le serveur : "+sMessage);
+			this.myComManager.writeConsoleLog("Message recu par le serveur : "+sMessage); //write on GUI console the received message
 			Object obj = JSONValue.parse(sMessage);
 			JSONObject objJson = (JSONObject) obj;
 			
 			System.out.println(objJson.get("MsgType"));
-			if(objJson.get("MsgType").equals("Ident"))
+			if(objJson.get("MsgType").equals("Ident"))//Get the message type
 			{
 				System.out.println("Ident trame");
 				prcossessingIdent(objJson);
@@ -88,7 +85,8 @@ public class Link implements Runnable, DecoSource
 					System.out.println("Wrong class for update list");
 				}
 			}
-			else{
+			else
+			{
 				System.out.println("Other trame");
 				this.myComManager.transmissionMessage(objJson, this);
 			}
@@ -96,10 +94,11 @@ public class Link implements Runnable, DecoSource
 	}
 	
 	/**Process on Identification frame
-	 * 
+	 * @author Jerome
 	 * @param objJson
 	 */
-	public void prcossessingIdent(JSONObject objJson){
+	public void prcossessingIdent(JSONObject objJson)
+	{
 		this.sIpClient = (String) objJson.get("From");
 		checkOld();
 		this.myComManager.writeConsoleLog("Ip client = " + sIpClient);
@@ -108,35 +107,36 @@ public class Link implements Runnable, DecoSource
 	}
 	
 	/**Insert IP in the GUI
-	 * 
+	 * @author Jerome
 	 */
 	public void printIp(){
 	}
 	
 	/**Process on Logout frame
-	 * 
+	 * @author Jerome
 	 */
-	public void prcossessingLogout(){
+	public void prcossessingLogout()
+	{
 		this.bRunLink = false;
 		notifyObserver();	
 	}
 	
 	/**Check if a previous version of the object is present in ComManager table
-	 * 
+	 * @author Jerome
 	 */
 	public void checkOld(){
 		
 	}
 	
 	/**Send data to the client
-	 * 
+	 * @author Jerome
 	 */
 	public void sendInformation(){
 		
 	}
 	
-	/**Method sending a message to the client
-	 * 
+	/**Method to send a message to the client
+	 * @author Jerome
 	 *@param 
 	 */
 	public void sendMessageToClient(String sMessage)
@@ -148,7 +148,6 @@ public class Link implements Runnable, DecoSource
 		}
 		catch (IOException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -162,7 +161,7 @@ public class Link implements Runnable, DecoSource
 		{
 			try 
 			{
-				sChaine = NetworkFlow.readMessageNet(this.inBuffer); //Lecture des messages venant du client
+				sChaine = NetworkFlow.readMessageNet(this.inBuffer); //Read messages from customer
 				proccesingOnReception(sChaine);
 				Thread.yield();
 			} 
@@ -186,7 +185,6 @@ public class Link implements Runnable, DecoSource
 			catch(IOException e) 
 			{
 				notifyObserver();
-				// TODO Auto-generated catch block
 				try 
 				{
 					this.socklink.close();
@@ -204,7 +202,8 @@ public class Link implements Runnable, DecoSource
 	}
 
 	@Override
-	public void notifyObserver() {
+	public void notifyObserver() 
+	{
 		this.myComManager.logoutPerformed(this);
 	}
 }

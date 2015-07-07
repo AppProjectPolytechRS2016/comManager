@@ -11,7 +11,6 @@ public class RobotLink extends Link{
 	 */
 	public RobotLink(ExecutorService es, Socket sockcli, ComManager myComManager) {
 		super(es, sockcli, myComManager);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void printIp()
@@ -23,15 +22,15 @@ public class RobotLink extends Link{
 	{
 		int index;
 		index = this.myComManager.findRobot(sIpClient);
-		if(index == -1)
+		if(index == -1) //if the robot is not in the list
 		{
 			this.myComManager.addRobot(this);
 		}
 		else
 		{
-			this.myComManager.getArRobotLink().remove(index);
-			this.myComManager.getMyWindow().removeListeRobot(index);
-			this.myComManager.addRobot(this);
+			this.myComManager.getArRobotLink().remove(index); //Remove the previous one from the ArrauyList
+			this.myComManager.getMyWindow().removeListeRobot(index);//Remove the previous one from the GUI list
+			this.myComManager.addRobot(this);//Add the new
 		}
 	}
 }

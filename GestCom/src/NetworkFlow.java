@@ -6,7 +6,7 @@ import java.io.IOException;
 public class NetworkFlow
 {
 	/**Method to write a message over the network
-	 * 
+	 * @author Jerome
 	 * @param out
 	 * @param s
 	 * @throws IOException
@@ -19,7 +19,7 @@ public class NetworkFlow
 	}
 	
 	/**Method to read a message from the network
-	 * 
+	 * @author Jerome
 	 * @param in
 	 * @return
 	 * @throws IOException
